@@ -6,6 +6,9 @@ class Car(models.Model):
     make = models.CharField(max_length=50, default='', null=False, blank=False)
     model = models.CharField(max_length=50, default='', null=False, blank=False)
 
+    def rating(self):
+        return self.rates.aggregate(models.Sum('rate'))['rate__sum']
+
     def __str__(self):
         return f'{self.make} | {self.model}'
 
