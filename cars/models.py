@@ -7,12 +7,23 @@ class Car(models.Model):
     model = models.CharField(max_length=50, default='', null=False, blank=False)
 
     def rating(self):
-        return self.rates.aggregate(models.Sum('rate'))['rate__sum']
+        if not len(self.rates.all()): return None
+        return float(format(self.rates.aggregate(models.Sum('rate'))['rate__sum'] / len(self.rates.all()), '.1f'))
+
+    def total_votes(self):
+        return self.rates.aggregate(models.Count('rate'))['rate__count']
 
     def __str__(self):
-        return f'{self.make} | {self.model}'
+        return f'{self.make} {self.model}'
 
 
 class Rate(models.Model):
-    rate = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])
+    RATES = (
+        (1, 'Meh'),
+        (2, 'Nothing special'),
+        (3, 'Pretty OK'),
+        (4, 'Likeable'),
+        (5, 'Extraordinary!'),
+    )
+    rate = models.IntegerField(choices=RATES, validators=[MaxValueValidator(5), MinValueValidator(1)])
     car = models.ForeignKey(Car, on_delete=models.CASCADE, related_name='rates')
