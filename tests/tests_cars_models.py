@@ -9,6 +9,7 @@ class CreateCarTestCase(TestCase):
         self.assertTrue(car)
         self.assertEqual(car.make, 'Volkswagen')
         self.assertEqual(car.model, 'Golf')
+        self.assertEqual(Car.objects.all().count(), 1)
 
 
 class RateTestCase(TestCase):
@@ -30,14 +31,17 @@ class CarModelMethodsTests(TestCase):
     def test_if_rating_is_properly_rounded_to_1st_decimal(self):
         self.assertIsNone(self.car.rating())
         Rate.objects.create(car=self.car, rate=4)
+        self.assertEqual(self.car.rating(), 4.0)
         Rate.objects.create(car=self.car, rate=5)
         self.assertEqual(self.car.rating(), 4.5)
+        Rate.objects.create(car=self.car, rate=5)
+        self.assertEqual(self.car.rating(), 4.7)
 
-    def test_total_votes_method(self):
-        self.assertEqual(self.car.total_votes(), 0)
+    def test_car_rates_number_method(self):
+        self.assertEqual(self.car.rates_number(), 0)
         Rate.objects.create(car=self.car, rate=4)
         Rate.objects.create(car=self.car, rate=5)
-        self.assertEqual(self.car.total_votes(), 2)
+        self.assertEqual(self.car.rates_number(), 2)
 
     # def test_if_rate_range_is_0_to_5(self):
         # self.assertIsNone(self.car.rating())

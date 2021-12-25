@@ -10,7 +10,7 @@ class Car(models.Model):
         if not len(self.rates.all()): return None
         return float(format(self.rates.aggregate(models.Sum('rate'))['rate__sum'] / len(self.rates.all()), '.1f'))
 
-    def total_votes(self):
+    def rates_number(self):
         return self.rates.aggregate(models.Count('rate'))['rate__count']
 
     def __str__(self):
