@@ -36,3 +36,16 @@ class CarsPOSTTestCase(APITestCase):
         self.assertEqual(len(self.client.get(reverse('car-list')).data), 1)
         self.assertEqual(Car.objects.all().count(), 1)
 
+
+class CarsDELETETestCase(APITestCase):
+    def setUp(self):
+        pass
+
+    def test_if_404_if_try_to_delete_non_existing_car(self):
+        response = self.client.delete(reverse('car-detail', kwargs={'pk': 1}))
+        self.assertEqual(response.status_code, 404)
+
+    def test_if_can_delete_car(self):
+        Car.objects.create(make='Volkswagen', model='Passat')
+        response = self.client.delete(reverse('car-detail', kwargs={'pk': 1}))
+        self.assertEqual(response.status_code, 204)

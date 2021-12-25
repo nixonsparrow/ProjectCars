@@ -3,7 +3,6 @@ from cars.models import Car, Rate
 
 
 class CreateCarTestCase(TestCase):
-
     def test_if_can_create_car_object(self):
         car = Car.objects.create(make='Volkswagen', model='Golf')
         self.assertTrue(car)
@@ -42,9 +41,3 @@ class CarModelMethodsTests(TestCase):
         Rate.objects.create(car=self.car, rate=4)
         Rate.objects.create(car=self.car, rate=5)
         self.assertEqual(self.car.rates_number(), 2)
-
-    # def test_if_rate_range_is_0_to_5(self):
-        # self.assertIsNone(self.car.rating())
-        # Rate.objects.create(car=self.car, rate=6)
-        # self.assertFalse(self.car.rating() == 6)
-

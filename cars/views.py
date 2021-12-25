@@ -4,7 +4,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
 from rest_framework import status
 from .models import Car
-from .serializers import CarSerializer
+from .serializers import CarSerializer, RateSerializer
 
 
 @api_view(('GET', 'POST'))
@@ -23,18 +23,25 @@ def car_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(('GET', 'DELETE'))
-@csrf_exempt
+@api_view(('DELETE',))
 def car_detail(request, pk):
     try:
         car = Car.objects.get(pk=pk)
     except Car.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    if request.method == 'GET':
-        serializer = CarSerializer(car)
-        return Response(serializer.data)
-
-    elif request.method == 'DELETE':
+    if request.method == 'DELETE':
         car.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(('POST', ))
+def add_rate(request):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        translated_data = {'car': data['car_id'], 'rate': data['rating']}
+        serializer = RateSerializer(data=translated_data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
