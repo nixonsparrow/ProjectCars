@@ -37,20 +37,21 @@ class CarsPOSTTestCase(APITestCase):
         self.assertEqual(Car.objects.all().count(), 1)
 
     def test_if_not_able_to_post_non_existing_make(self):
-        # POST data with new car - valid example
-        new_car_data = {'make': 'Volkswaaaaagen', 'model': 'Passat'}
-        response = self.client.post(reverse('car-list'), new_car_data, format='json')
+        wrong_make_car_data = {'make': 'Volkswaaaaagen', 'model': 'Passat'}
+        response = self.client.post(reverse('car-list'), wrong_make_car_data, format='json')
         self.assertEqual(response.status_code, 400)
 
     def test_if_not_able_to_post_non_existing_model(self):
-        new_car_data = {'make': 'Volkswagen', 'model': 'Passssssssssat'}
-        response = self.client.post(reverse('car-list'), new_car_data, format='json')
+        wrong_model_car_data = {'make': 'Volkswagen', 'model': 'Passssssssssat'}
+        response = self.client.post(reverse('car-list'), wrong_model_car_data, format='json')
         self.assertEqual(response.status_code, 400)
 
     def test_if_not_able_to_post_same_make_plus_model_that_is_already_in_db(self):
         new_car_data = {'make': 'Volkswagen', 'model': 'Passat'}
+        # POST data with new car twice - valid example
         response = self.client.post(reverse('car-list'), new_car_data, format='json')
         self.assertEqual(response.status_code, 201)
+        # second one returns error - not unique object
         response = self.client.post(reverse('car-list'), new_car_data, format='json')
         self.assertEqual(response.status_code, 400)
 
