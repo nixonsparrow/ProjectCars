@@ -7,7 +7,7 @@ from .models import Car, Rate
 class CarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Car
-        fields = '__all__'
+        fields = ['id', 'make', 'model', 'avg_rating']
         validators = [
             UniqueTogetherValidator(
                 queryset=Car.objects.all(),
@@ -26,6 +26,12 @@ class CarSerializer(serializers.ModelSerializer):
         if data['model'].lower() not in models: raise serializers.ValidationError({'model': 'Car Model is not valid.'})
 
         return data
+
+
+class PopularCarSerializer(CarSerializer):
+    class Meta:
+        model = Car
+        fields = ['id', 'make', 'model', 'rates_number']
 
 
 class RateSerializer(serializers.ModelSerializer):

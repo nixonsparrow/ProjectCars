@@ -4,9 +4,6 @@ from cars.models import Car
 
 
 class CarsGETTestCase(APITestCase):
-    def setUp(self):
-        pass
-
     def test_get_car_list_in_json(self):
         response = self.client.get(reverse('car-list'))
         self.assertEqual(response.status_code, 200)
@@ -24,15 +21,10 @@ class CarsGETTestCase(APITestCase):
 
 
 class CarsPOSTTestCase(APITestCase):
-    def setUp(self):
-        pass
-
     def test_cars_post_add_car_to_database(self):
         # POST data with new car - valid example
         new_car_data = {'make': 'Volkswagen', 'model': 'Passat'}
-        print('CAR:', Car.objects.first())
         self.client.post(reverse('car-list'), new_car_data, format='json')
-        print('CAR:', Car.objects.first())
 
         # assert new car with GET view and db check
         self.assertEqual(len(self.client.get(reverse('car-list')).data), 1)
@@ -59,9 +51,6 @@ class CarsPOSTTestCase(APITestCase):
 
 
 class CarsDELETETestCase(APITestCase):
-    def setUp(self):
-        pass
-
     def test_if_404_if_try_to_delete_non_existing_car(self):
         response = self.client.delete(reverse('car-detail', kwargs={'pk': 1}))
         self.assertEqual(response.status_code, 404)

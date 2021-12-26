@@ -22,6 +22,11 @@ class RateTestCase(TestCase):
         rate = Rate.objects.create(car=self.car, rate=4)
         self.assertEqual(Car.objects.get(rates=rate), self.car)
 
+    def test_if_car_avg_rating_is_updating_after_rate_creation(self):
+        self.assertIsNone(self.car.avg_rating)
+        Rate.objects.create(car=self.car, rate=4)
+        self.assertEqual(self.car.avg_rating, 4.0)
+
 
 class CarModelMethodsTests(TestCase):
     def setUp(self):
