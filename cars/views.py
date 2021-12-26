@@ -23,7 +23,7 @@ def car_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(('GET', 'POST'))
+@api_view(('GET',))
 def car_popular(request):
     if request.method == 'GET':
         cars = Car.objects.all()
