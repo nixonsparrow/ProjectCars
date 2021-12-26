@@ -8,13 +8,13 @@ class RatePOSTTestCase(APITestCase):
         self.car = Car.objects.create(make='Volkswagen', model='Golf')
 
     def test_if_can_post_rate(self):
-        self.assertIsNone(self.car.calculate_avg_rating())
+        self.assertIsNone(self.car.avg_rating())
 
         new_rate_data = {'car_id': 1, 'rating': 5}
         self.client.post(reverse('add-rate'), new_rate_data, format='json')
 
         # assert new rate creation with car method and db check
-        self.assertEqual(self.car.calculate_avg_rating(), 5.0)
+        self.assertEqual(self.car.avg_rating(), 5.0)
         self.assertEqual(Rate.objects.all().count(), 1)
 
     def test_if_cannot_post_rate_if_rate_is_0_or_lower(self):

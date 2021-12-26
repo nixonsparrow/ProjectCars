@@ -1,6 +1,7 @@
 from rest_framework.test import APITestCase
-# from django.urls import reverse
+from django.urls import reverse
 from cars.models import Car, Rate
+import json
 
 
 class PopularTestCase(APITestCase):
@@ -25,4 +26,11 @@ class PopularTestCase(APITestCase):
         self.assertEqual(sum([len(rates) for car, rates in self.cars_and_rates]), 45)
 
     def test_if_popular_url_gives_proper_response(self):
-        pass
+        response = self.client.get(reverse('car-popular'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_if_popular_url_calculates_rates_number(self):
+        response = self.client.get(reverse('car-popular'))
+        for car_dict in json.loads(response.content):
+            car = Car.objects.get(id=car_dict['id'])
+            self.assertEqual(car_dict['rates_number'], car.rates_number())

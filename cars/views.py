@@ -23,6 +23,14 @@ def car_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(('GET', 'POST'))
+def car_popular(request):
+    if request.method == 'GET':
+        cars = Car.objects.all()
+        serializer = PopularCarSerializer(cars, many=True)
+        return Response(serializer.data)
+
+
 @api_view(('DELETE',))
 def car_detail(request, pk):
     try:

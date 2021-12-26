@@ -28,7 +28,7 @@ class CarSerializer(serializers.ModelSerializer):
         return data
 
 
-class PopularCarSerializer(CarSerializer):
+class PopularCarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Car
         fields = ['id', 'make', 'model', 'rates_number']

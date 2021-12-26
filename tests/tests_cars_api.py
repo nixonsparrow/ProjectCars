@@ -17,7 +17,8 @@ class CarsGETTestCase(APITestCase):
 
         response = self.client.get(reverse('car-list'))
         self.assertEqual(len(response.data), 1)
-        self.assertIn("[('id', 1), ('make', 'Volkswagen'), ('model', 'Golf'), ('avg_rating', None)]", response.data.__str__())
+        self.assertIn("[('id', 1), ('make', 'Volkswagen'), ('model', 'Golf'), ('avg_rating', None)]",
+                      response.data.__str__())
 
 
 class CarsPOSTTestCase(APITestCase):
