@@ -20,7 +20,7 @@ class CarsGETTestCase(APITestCase):
 
         response = self.client.get(reverse('car-list'))
         self.assertEqual(len(response.data), 1)
-        self.assertIn("[('id', 1), ('make', 'Volkswagen'), ('model', 'Golf')]", response.data.__str__())
+        self.assertIn("[('id', 1), ('make', 'Volkswagen'), ('model', 'Golf'), ('avg_rating', None)]", response.data.__str__())
 
 
 class CarsPOSTTestCase(APITestCase):
@@ -30,7 +30,9 @@ class CarsPOSTTestCase(APITestCase):
     def test_cars_post_add_car_to_database(self):
         # POST data with new car - valid example
         new_car_data = {'make': 'Volkswagen', 'model': 'Passat'}
+        print('CAR:', Car.objects.first())
         self.client.post(reverse('car-list'), new_car_data, format='json')
+        print('CAR:', Car.objects.first())
 
         # assert new car with GET view and db check
         self.assertEqual(len(self.client.get(reverse('car-list')).data), 1)

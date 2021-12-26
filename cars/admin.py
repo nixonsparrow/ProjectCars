@@ -3,7 +3,7 @@ from cars.models import Car, Rate
 
 
 class CarAdmin(admin.ModelAdmin):
-    list_display = ['id', 'make', 'model', 'rating']
+    list_display = ['id', 'make', 'model', 'avg_rating']
 
 
 class RateAdmin(admin.ModelAdmin):

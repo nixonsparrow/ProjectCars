@@ -5,8 +5,9 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 class Car(models.Model):
     make = models.CharField(max_length=50, default='', null=False, blank=False)
     model = models.CharField(max_length=50, default='', null=False, blank=False)
+    avg_rating = models.FloatField(default=None, null=True, blank=True)
 
-    def rating(self):
+    def calculate_avg_rating(self):
         if not len(self.rates.all()): return None
         return float(format(self.rates.aggregate(models.Sum('rate'))['rate__sum'] / len(self.rates.all()), '.1f'))
 
