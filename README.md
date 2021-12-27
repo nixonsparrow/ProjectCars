@@ -28,7 +28,7 @@ $ pip install -r requirements.txt
 To start the application, run:
 
 ~~~~
-python manage.py runserver
+$ python manage.py runserver
 ~~~~
 
 ## Tests
@@ -38,7 +38,7 @@ All tests are located in the ``tests/`` directory.
 To run tests, call:
 
 ~~~~
-python manage.py test
+$ python manage.py test
 ~~~~
 
 
