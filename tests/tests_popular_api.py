@@ -9,8 +9,8 @@ class PopularTestCase(APITestCase):
         self.cars_and_rates = [
             ({'make': 'Volkswagen', 'model': 'Golf'}, [2, 2, 4, 4, 5, 6]),
             ({'make': 'Volkswagen', 'model': 'Passat'}, [3, 2, 5, 4, 6]),
-            ({'make': 'Fiat', 'model': 'Seicento'}, [1, 2, 3, 4, 5, 6, 3, 2, 1]),
-            ({'make': 'Fiat', 'model': 'Punto'}, [1, 2, 3, 4, 5, 6]),
+            ({'make': 'Fiat', 'model': 'Ducato'}, [1, 2, 3, 4, 5, 6, 3, 2, 1]),
+            ({'make': 'Fiat', 'model': 'Brava'}, [1, 2, 3, 4, 5, 6]),
             ({'make': 'Toyota', 'model': 'Corolla'}, [1, 2, 3, 4, 5, 6]),
             ({'make': 'Toyota', 'model': 'Yaris'}, [1, 2, 3, 4, 5, 6]),
             ({'make': 'Dodge', 'model': 'Viper'}, [6, 6, 6]),

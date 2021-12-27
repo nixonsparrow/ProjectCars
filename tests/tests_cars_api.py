@@ -58,5 +58,7 @@ class CarsDELETETestCase(APITestCase):
 
     def test_if_can_delete_car(self):
         Car.objects.create(make='Volkswagen', model='Passat')
+        self.assertEqual(Car.objects.all().count(), 1)
         response = self.client.delete(reverse('car-detail', kwargs={'pk': 1}))
         self.assertEqual(response.status_code, 204)
+        self.assertEqual(Car.objects.all().count(), 0)

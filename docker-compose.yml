@@ -3,7 +3,8 @@ version: "4.0"
 services:
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: bash -c "python manage.py migrate &&
+                      python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
     ports:
@@ -14,5 +15,3 @@ services:
     image: nouchka/sqlite3:latest
     stdin_open: true
     tty: true
-    volumes:
-      - ./db/:/root/db/

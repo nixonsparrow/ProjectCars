@@ -1,13 +1,14 @@
-# from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
-from rest_framework.decorators import api_view
+from rest_framework.renderers import JSONRenderer
+from rest_framework.decorators import renderer_classes, api_view
 from rest_framework import status
 from .models import Car
 from .serializers import CarSerializer, RateSerializer, PopularCarSerializer
 
 
 @api_view(('GET', 'POST'))
+@renderer_classes((JSONRenderer,))
 def car_list(request):
     if request.method == 'GET':
         cars = Car.objects.all()
@@ -24,6 +25,7 @@ def car_list(request):
 
 
 @api_view(('GET',))
+@renderer_classes((JSONRenderer,))
 def car_popular(request):
     if request.method == 'GET':
         cars = Car.objects.all()
@@ -32,6 +34,7 @@ def car_popular(request):
 
 
 @api_view(('DELETE',))
+@renderer_classes((JSONRenderer,))
 def car_detail(request, pk):
     try:
         car = Car.objects.get(pk=pk)
@@ -44,6 +47,7 @@ def car_detail(request, pk):
 
 
 @api_view(('POST', ))
+@renderer_classes((JSONRenderer,))
 def add_rate(request):
     if request.method == 'POST':
         data = JSONParser().parse(request)
