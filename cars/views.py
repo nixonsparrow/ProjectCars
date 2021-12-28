@@ -3,8 +3,13 @@ from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 from rest_framework.decorators import renderer_classes, api_view
 from rest_framework import status
+from django.shortcuts import render
 from .models import Car
 from .serializers import CarSerializer, RateSerializer, PopularCarSerializer
+
+
+def welcome(request):
+    return render(request, 'cars/welcome.html')
 
 
 @api_view(('GET', 'POST'))

@@ -3,6 +3,14 @@ from django.urls import reverse
 from cars.models import Car
 
 
+class TestHomepage(APITestCase):
+    def test_homepage_template(self):
+        self.assertTemplateUsed(self.client.get(reverse('welcome')), 'cars/welcome.html')
+
+    def test_homepage_status_code(self):
+        self.assertEqual(self.client.get(reverse('welcome')).status_code, 200)
+
+
 class CarsGETTestCase(APITestCase):
     def test_get_car_list_in_json(self):
         response = self.client.get(reverse('car-list'))
