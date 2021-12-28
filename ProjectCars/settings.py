@@ -26,7 +26,7 @@ try:
 except FileNotFoundError:
     config = {
         "SECRET_KEY": "don't_use%that#in$production(but)create&config.json*file",
-        "ALLOWED_HOSTS": 'localhost',
+        "ALLOWED_HOSTS": ['localhost'],
         "DEBUG": False
     }
 

@@ -57,6 +57,12 @@ Here's config.json file scheme:
 }
 ~~~~
 
+## Application URL
+
+~~~~
+localhost:8000
+~~~~
+
 
 Interesting endpoints:
 ======================
