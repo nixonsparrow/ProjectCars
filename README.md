@@ -10,6 +10,13 @@ The easiest way to start is to build in a Docker container:
 $ docker-compose up
 ~~~~
 
+If the app is running in a Docker container, all command line commands
+should be prefixed with:
+
+~~~~
+$ docker-compose run web [COMMAND]  # ie. python manage.py test
+~~~~
+
 ## Running locally
 
 To build the app locally, create a venv directory inside your app:
@@ -44,8 +51,8 @@ $ python manage.py test
 ## Config.json
 
 It is recommended to create your own config file in app's main folder. 
-It has to have all 3 variables. 
-Information about SECRET_KEY are to found here: https://docs.djangoproject.com/en/4.0/ref/settings/#secret-key 
+It must have all 3 variables. 
+Information about a SECRET_KEY are to found here: https://docs.djangoproject.com/en/4.0/ref/settings/#secret-key 
 
 Here's config.json file scheme: 
 
@@ -63,7 +70,7 @@ Here's config.json file scheme:
 localhost:8000
 ~~~~
 
-## Populate database with example
+## Populate database with example objects
 
 ~~~~
 $ python manage.py loaddata db_init.json
@@ -103,7 +110,7 @@ CONTENT:
 }
 ~~~~
 
-To delete a car, just send DELETE here:
+To delete a car, just send a DELETE here:
 
 ~~~~
 DELETE ENDPOINT: /cars/{id}
