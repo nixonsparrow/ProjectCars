@@ -63,6 +63,12 @@ Here's config.json file scheme:
 localhost:8000
 ~~~~
 
+## Populate database with example
+
+~~~~
+$ python manage.py loaddata db_init.json
+~~~~
+
 
 Interesting endpoints:
 ======================
