@@ -13,8 +13,8 @@ class Car(models.Model):
     def rates_number(self):
         return self.rates.aggregate(models.Count('rate'))['rate__count']
 
-    def rate_me(self, rating):
-        return Rate.objects.create(car=self, rate=rating)
+    def rate_me(self, rate):
+        return Rate.objects.create(car=self, rate=rate)
 
     def __str__(self):
         return f'{self.make} {self.model}'

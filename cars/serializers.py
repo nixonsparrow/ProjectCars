@@ -8,15 +8,6 @@ class CarSerializer(serializers.ModelSerializer):
         model = Car
         fields = ['id', 'make', 'model', 'avg_rating']
 
-        # UniqueTogetherValidator is Case sensitive, probably better to use custom validation
-        #
-        # validators = [
-        #     UniqueTogetherValidator(
-        #         queryset=Car.objects.all(),
-        #         fields=['make', 'model']
-        #     )
-        # ]
-
     def validate(self, data):
         make = data['make'].lower()
         model = data['model'].lower()
