@@ -23,19 +23,20 @@ class CarsGETTestCase(APITestCase):
 
 class CarsPOSTTestCase(APITestCase):
     def test_cars_post_add_car_to_database(self):
-        new_car_data = {'make': 'Volkswagen', 'model': 'Passat'}
-        self.client.post(reverse('car-list'), new_car_data, format='json')
+        self.client.post(reverse('car-list'), {'make': 'Volkswagen', 'model': 'Passat'}, format='json')
 
         self.assertEqual(len(self.client.get(reverse('car-list')).data), 1)
         self.assertEqual(Car.objects.all().count(), 1)
 
     def test_if_not_able_to_post_non_existing_make(self):
         wrong_make_car_data = {'make': 'Volkswaaaaagen', 'model': 'Passat'}
+
         response = self.client.post(reverse('car-list'), wrong_make_car_data, format='json')
         self.assertEqual(response.status_code, 400)
 
     def test_if_not_able_to_post_non_existing_model(self):
         wrong_model_car_data = {'make': 'Volkswagen', 'model': 'Passssssssssat'}
+
         response = self.client.post(reverse('car-list'), wrong_model_car_data, format='json')
         self.assertEqual(response.status_code, 400)
 
@@ -48,6 +49,9 @@ class CarsPOSTTestCase(APITestCase):
         response = self.client.post(reverse('car-list'), new_car_data, format='json')
         self.assertEqual(response.status_code, 400)
 
+        response = self.client.post(reverse('car-list'), {'make': 'volkswagen', 'model': 'passat'}, format='json')
+        self.assertEqual(response.status_code, 400)
+
 
 class CarsDELETETestCase(APITestCase):
     def test_if_404_if_try_to_delete_non_existing_car(self):
@@ -56,7 +60,10 @@ class CarsDELETETestCase(APITestCase):
 
     def test_if_can_delete_car(self):
         Car.objects.create(make='Volkswagen', model='Passat')
+
         self.assertEqual(Car.objects.all().count(), 1)
+
         response = self.client.delete(reverse('car-detail', kwargs={'pk': 1}))
+
         self.assertEqual(response.status_code, 204)
         self.assertEqual(Car.objects.all().count(), 0)

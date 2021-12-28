@@ -25,6 +25,7 @@ try:
         config = json.load(config_file)
 except FileNotFoundError:
     config = {
+        # Django's SECRET_KEY details here: https://docs.djangoproject.com/en/4.0/ref/settings/#secret-key
         "SECRET_KEY": "don't_use%that#in$production(but)create&config.json*file",
         "ALLOWED_HOSTS": ['localhost'],
         "DEBUG": False
