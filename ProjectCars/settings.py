@@ -26,16 +26,17 @@ try:
 except FileNotFoundError:
     config = {
         "SECRET_KEY": "don't_use%that#in$production(but)create&config.json*file",
-        "HOSTS": 'localhost'
+        "ALLOWED_HOSTS": 'localhost',
+        "DEBUG": False
     }
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = config['DEBUG']
 
-ALLOWED_HOSTS = config['HOSTS']
+ALLOWED_HOSTS = config['ALLOWED_HOSTS']
 
 
 # Application definition
@@ -117,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Warsaw'
 
 USE_I18N = True
 

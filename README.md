@@ -41,6 +41,22 @@ To run tests, call:
 $ python manage.py test
 ~~~~
 
+## Config.json
+
+It is recommended to create your own config file in app's main folder. 
+It has to have all 3 variables. 
+Information about SECRET_KEY are to found here: https://docs.djangoproject.com/en/4.0/ref/settings/#secret-key 
+
+Here's config.json file scheme: 
+
+~~~~
+{
+  "SECRET_KEY": "D4qGKi#ptAq@o`5QW9iv4$eNLc6xl4Rwi*Ffes6oOc_YhkYnc",
+  "ALLOWED_HOSTS": ["YOUR SITE", "localhost"],
+  "DEBUG": true/false
+}
+~~~~
+
 
 Interesting endpoints:
 ======================

@@ -1,6 +1,6 @@
 from rest_framework.test import APITestCase
 from django.urls import reverse
-from cars.models import Car, Rate
+from cars.models import Car
 import json
 
 
@@ -19,7 +19,7 @@ class PopularTestCase(APITestCase):
 
         for car, rates in self.cars_and_rates:
             car_object = Car.objects.create(make=car['make'], model=car['model'])
-            [Rate.objects.create(car=car_object, rate=rate) for rate in rates]
+            [car_object.rate_me(rate) for rate in rates]
 
     def test_if_setup_is_correct(self):
         self.assertEqual(Car.objects.all().count(), len(self.cars_and_rates))
