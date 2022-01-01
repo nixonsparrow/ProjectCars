@@ -27,7 +27,7 @@ except FileNotFoundError:
     config = {
         # Django's SECRET_KEY details here: https://docs.djangoproject.com/en/4.0/ref/settings/#secret-key
         "SECRET_KEY": "don't_use%that#in$production(but)create&config.json*file",
-        "ALLOWED_HOSTS": ['localhost'],
+        "ALLOWED_HOSTS": [],
         "DEBUG": False
     }
 
@@ -37,7 +37,9 @@ SECRET_KEY = config['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config['DEBUG']
 
-ALLOWED_HOSTS = config['ALLOWED_HOSTS']
+# localhost enabled by default, delete it and/or add more hosts in your config file (i.e. '127.0.0.1' or YOUR SITE)
+ALLOWED_HOSTS = ['localhost']
+[ALLOWED_HOSTS.append(host) for host in config['ALLOWED_HOSTS']]
 
 
 # Application definition
